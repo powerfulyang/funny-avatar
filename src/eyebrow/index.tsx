@@ -4,8 +4,8 @@ import { MaleEyebrow } from './male.js';
 import { FemaleEyebrow } from './female.js';
 
 export enum Gender {
-  male,
-  female,
+  male = 'male',
+  female = 'female',
 }
 
 export const Eyebrow: FC<{ style: Gender }> = (props) => {

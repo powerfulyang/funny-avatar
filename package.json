@@ -1,6 +1,6 @@
 {
   "name": "@powerfulyang/funny-avatar",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "react library for generating avatar",
   "exports": "./dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import React from 'react';
-import type { NiceAvatarProps } from './types.js';
+import React, { useEffect, useState } from 'react';
+import type { AvatarConfig, NiceAvatarProps } from './types.js';
 import { Face } from './face/index.js';
 import { Hair } from './hair/index.js';
 import { Hat, HatStyle } from './hat/index.js';
@@ -13,98 +13,91 @@ import { Mouth } from './mouth/index.js';
 import { Shirt } from './shirt/index.js';
 import { genConfig } from './utils/index.js';
 
-const ReactNiceAvatar: FC<NiceAvatarProps> = (props) => {
+export const FunnyAvatar: FC<NiceAvatarProps> = (props) => {
   const { className } = props;
-  const config = genConfig(props);
+  const [config, setConfig] = useState<AvatarConfig>();
 
-  // Background shape
-  let borderRadius;
-  switch (config.shape) {
-    case 'circle': {
-      borderRadius = '100%';
-      break;
+  const [borderRadius, setBorderRadius] = useState<string>();
+  useEffect(() => {
+    const c = genConfig(props);
+    setConfig(c);
+    // Background shape
+    switch (c.shape) {
+      case 'circle': {
+        setBorderRadius('100%');
+        break;
+      }
+      case 'rounded': {
+        setBorderRadius('6px');
+        break;
+      }
+      case 'square': {
+        setBorderRadius('0px');
+        break;
+      }
+      default:
     }
-    case 'rounded': {
-      borderRadius = '6px';
-      break;
-    }
-    case 'square': {
-      borderRadius = 0;
-      break;
-    }
-    default:
-  }
+  }, [props]);
 
   return (
-    <div
-      className={className}
-      style={{
-        background: config.bgColor,
-        borderRadius,
-        overflow: 'hidden',
-      }}
-    >
+    (config && (
       <div
+        className={className}
         style={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
+          background: config.bgColor,
+          borderRadius,
+          overflow: 'hidden',
         }}
       >
         <div
           style={{
-            position: 'absolute',
-            bottom: 0,
+            position: 'relative',
             width: '100%',
-            height: '90%',
+            height: '100%',
           }}
         >
-          <Face color={config.faceColor} />
-          <Hat color={config.hatColor} style={config.hatStyle} />
-          {config.hatStyle === HatStyle.none && (
-            <Hair color={config.hairColor} style={config.hairStyle} />
-          )}
-
-          {/* Face detail */}
           <div
             style={{
               position: 'absolute',
-              right: '-3%',
-              top: '30%',
+              bottom: 0,
               width: '100%',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
+              height: '90%',
             }}
           >
-            <Eyebrow style={config.eyebrowStyle} />
-            <Eyes style={config.eyesStyle} />
-            <Glasses style={config.glassesStyle} />
-            <Ear color={config.faceColor} size={config.earSize} />
-            <Nose style={config.noseStyle} />
-            <Mouth style={config.mouthStyle} />
-          </div>
+            <Face color={config.faceColor} />
+            <Hat color={config.hatColor} style={config.hatStyle} />
+            {config.hatStyle === HatStyle.none && (
+              <Hair color={config.hairColor} style={config.hairStyle} />
+            )}
 
-          <Shirt color={config.shirtColor} style={config.shirtStyle} />
+            {/* Face detail */}
+            <div
+              style={{
+                position: 'absolute',
+                right: '-3%',
+                top: '30%',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Eyebrow style={config.eyebrowStyle} />
+              <Eyes style={config.eyesStyle} />
+              <Glasses style={config.glassesStyle} />
+              <Ear color={config.faceColor} size={config.earSize} />
+              <Nose style={config.noseStyle} />
+              <Mouth style={config.mouthStyle} />
+            </div>
+
+            <Shirt color={config.shirtColor} style={config.shirtStyle} />
+          </div>
         </div>
       </div>
-    </div>
+    )) || <span>loading...</span>
   );
 };
 
-export {
-  Face,
-  Mouth,
-  Hair,
-  Hat,
-  Ear,
-  Eyebrow,
-  Eyes,
-  Glasses,
-  Nose,
-  Shirt,
-  genConfig,
-  ReactNiceAvatar,
-};
+export { Face, Mouth, Hair, Hat, Ear, Eyebrow, Eyes, Glasses, Nose, Shirt, genConfig };
