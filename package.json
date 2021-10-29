@@ -1,0 +1,57 @@
+{
+  "name": "@powerfulyang/funny-avatar",
+  "version": "1.0.1",
+  "description": "react library for generating avatar",
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "patch-version": "npm version patch --no-git-tag-version",
+    "lint:fix": "eslint . --ext tsx,ts --fix",
+    "tsc": "rimraf dist && tsc",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write"
+  },
+  "keywords": [
+    "react",
+    "avatar",
+    "esm",
+    "typescript"
+  ],
+  "author": "powerfulyang",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17.0.2"
+  },
+  "dependencies": {
+    "@powerfulyang/utils": "^1.2.0",
+    "chroma-js": "^2.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@powerfulyang/lint": "^0.5.0",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "babel-loader": "^8.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.0-dev.20211025"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/powerfulyang/react-nice-avatar"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
